@@ -1,0 +1,12 @@
+# 原始解析与英文版：体量大、可由 MinerU 重新生成 / 本项目未使用，不入 Git
+data/MinerU/
+data/en/
+
+# Python
+__pycache__/
+*.py[cod]
+*.tmp
+.venv/
+
+# 系统
+.DS_Store
