@@ -53,7 +53,7 @@ def main():
     ap.add_argument('--files', nargs='+', default=DEFAULT_FILES)
     ap.add_argument('--uri', default='bolt://localhost:7688')
     ap.add_argument('--user', default='neo4j')
-    ap.add_argument('--password', default='***REDACTED***')
+    ap.add_argument('--password', default=os.environ.get('NEO4J_PASSWORD', ''))
     ap.add_argument('--batch', type=int, default=5000)
     ap.add_argument('--wipe', action='store_true', help='入库前清空库')
     args = ap.parse_args()

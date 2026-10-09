@@ -16,7 +16,7 @@
 | P5 HTML→markdown | ✅ | `chunks.jsonl` 原位写回 `table_markdown`（1038 转换 / 119 空表 / 0 失败） |
 | P6 索引构建 | ✅ | `index/`（bm25.pkl + dense.npy 12076×1024 + doc_ids.json + meta.json） |
 | P7 双轨 KG 抽取 | ✅ | 轨 A 56,875 三元组（7,997 chunk）；轨 B 13,265 三元组（1,213/1,397 chunk）；合计 70,140 |
-| P8 Neo4j 入库(user neo4j 密码:***REDACTED***) | ✅ | 68,384 节点 / 67,790 边（70,140 三元组→2,350 跨 chunk 重复合并）；1,496 合并关系 max count=124 |
+| P8 Neo4j 入库(user neo4j，密码经 `NEO4J_PASSWORD` 环境变量注入，不入库) | ✅ | 68,384 节点 / 67,790 边（70,140 三元组→2,350 跨 chunk 重复合并）；1,496 合并关系 max count=124 |
 
 ## 数据文件（data/cn/）
 
@@ -60,7 +60,7 @@
 - **模型缓存**（ModelScope 下载，HF 不可达）：`~/.cache/modelscope/models/BAAI--bge-m3`、`BAAI--bge-reranker-v2-m3`
 - **P6 教训**：bge-m3 编码 batch 64 会 OOM（长表 markdown 接近 8k tokens 时单次 attention 要 16GB），fp16 + batch 16 即可（12,076 条 69s）
 - 本机 8×RTX 3090；GPU 4-7 常被占用，0-3 空闲；P7 起 vLLM 前先用 **gpu-torch-bootstrap skill** 确认 GPU/vLLM 环境
-- 数据库：Neo4j **bolt://localhost:7688**（本机 `~/neo4j` 实例，注意 7687 是他人实例勿连） user:neo4j password:***REDACTED***；已验证连通、库为空
+- 数据库：Neo4j **bolt://localhost:7688**（本机 `~/neo4j` 实例，注意 7687 是他人实例勿连） user:neo4j，密码见环境变量 `NEO4J_PASSWORD`；已验证连通、库为空
 - **conda env `rag-kg-vllm`**（P7）：`~/.conda/envs/rag-kg-vllm`，vllm 0.31.0 / torch 2.13.0+cu130 / flashinfer 0.7.0.post1 / ninja；neo4j 6.4.0 装在 rag-kg（P8 用）
 - **P7 启动**：`bash p7_run.sh <a|b> <Qwen--模型目录名> <gpu_ids> [额外参数]`（已固化 CUDA_HOME/PATH）；轨 A：GPU 2,3 TP=2（已完成）；轨 B：**TP=4 GPU 0,1,2,3**（以下为踩坑后定稿配置）
   - ~~TP=3~~ 不可行：Qwen3-VL-32B 有 64 attention heads，64%3≠0（VllmConfig ValidationError）

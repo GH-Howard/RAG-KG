@@ -112,7 +112,7 @@ RAG-KG/
 
 ### 4.4 数据库
 - Neo4j 实例：**bolt://localhost:7688**（注意 7687 是他人实例，勿连）
-- 账号 `neo4j` / 密码 `***REDACTED***`
+- 账号 `neo4j` / 密码经环境变量 `NEO4J_PASSWORD` 注入（不写入代码与文档；向服务器管理员获取）
 - 启动：`~/neo4j/bin/neo4j start`
 
 ---
