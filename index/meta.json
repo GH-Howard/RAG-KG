@@ -1,0 +1,7 @@
+{
+  "n_docs": 12076,
+  "dense_dim": 1024,
+  "model": "BAAI/bge-m3",
+  "normalize": true,
+  "batch_size": 16
+}
