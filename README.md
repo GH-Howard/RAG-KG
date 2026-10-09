@@ -42,7 +42,7 @@ P8 load_kg.py ──► Neo4j (Entity {name,type}) -[REL {…,count}]->
 ├── HANDOFF.md          完整交接文档（环境、复现步骤、Schema、效果、缺陷）
 ├── pipeline.md         内部执行日志与踩坑记录
 ├── *.py / p7_run.sh    P0–P8 流水线脚本 + vLLM 启动封装
-├── data/cn/            中文核心数据（chunks、合并结果、7,339 张图片）
+├── data/cn/            中文核心数据（不入 Git，需自行生成，见「说明」）
 ├── index/              BM25 + dense 检索索引
 └── kg_out/             双轨三元组产出
 ```
@@ -65,7 +65,7 @@ P8 load_kg.py ──► Neo4j (Entity {name,type}) -[REL {…,count}]->
 
 ## 说明
 
-- 本仓库**不含** `data/MinerU/`（781MB 原始解析，可用 MinerU 重新生成）与 `data/en/`（339MB 英文版解析，本项目未使用）；克隆后如需从零复现请先补充原始 PDF 并重新解析。
+- 本仓库**不含 `data/`**（MinerU 原始解析、chunks 与图片等，体量大且规范内容受版权保护）；复现请自备《钢质海船入级规范》2026 PDF 并用 MinerU 重新解析生成。
 - 实体类型为受控 10 类：设备、结构、检验、参数、材料、组织、标准、规范条款、过程、其他。
 - 已知缺陷（无金标准评测、图片轨类型越界、实体未归一等）与改进建议见 [HANDOFF.md](HANDOFF.md)。
 - 部分脚本含本机路径与数据库口令，迁移部署前需修改（HANDOFF.md §7）。

@@ -1,6 +1,5 @@
-# 原始解析与英文版：体量大、可由 MinerU 重新生成 / 本项目未使用，不入 Git
-data/MinerU/
-data/en/
+# 数据目录不入 Git（体量大且规范内容受版权保护；需自备 PDF 用 MinerU 解析生成）
+data/
 
 # Python
 __pycache__/
